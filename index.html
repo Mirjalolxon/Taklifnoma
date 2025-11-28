@@ -4,22 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TAKLIFNOMA</title>
+
+  <!-- Google fontlar -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
   <style>
+    /* ======== ASOSIY SAHIFA USLUBLARI ======== */
+
     body {
       margin: 0;
-      font-family: 'Lora', serif;
-      display: flex;
+      font-family: 'Lora', serif; /* Asosiy shrift */
+      display: flex; /* Markazlash uchun */
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: #1a1a1a;
-      overflow: hidden;
+      height: 100vh; /* Ekranning balandligiga mos */
+      background: #1a1a1a; /* Qorong'i fon */
+      overflow: hidden; /* Sroll chiqmasligi uchun */
       color: #fff;
       text-align: center;
     }
+
+    /* Orqa fon rasmi */
     .background-container {
-      background: url('taklifnoma.jpeg') no-repeat center center;
+      background: url('C:/Users/7777/Desktop/TAKLIFNOMA/taklifnoma.jpeg') no-repeat center center; /* Mahalliy yo'l (brauzerda ko'rinishi uchun to'g'ri yo'l kerak bo'ladi) */
       background-size: contain;
       background-attachment: fixed;
       width: 100%;
@@ -27,13 +34,17 @@
       position: absolute;
       top: 0;
       left: 0;
-      z-index: -1;
+      z-index: -1; /* Matn va kartadan orqada turishi uchun */
       opacity: 0.8;
     }
+
+    /* Dastlabki overlay (ochilish ekraniga animatsiya) */
     .overlay {
       opacity: 0;
       animation: fadeInUp 0.8s ease-in forwards;
     }
+
+    /* Sahifa sarlavhasi (ism) */
     .title {
       font-family: 'Great Vibes', cursive;
       font-size: 3em;
@@ -44,6 +55,11 @@
       opacity: 0;
       animation: fadeInLeft 0.6s ease-in 0.2s forwards;
     }
+    .dekor {
+      font-family:'Great Vibes', cursive;
+
+    }
+    /* Dastlabki sana ko'rsatkichi */
     .date {
       font-size: 1.5em;
       margin: 10px 0;
@@ -52,6 +68,8 @@
       animation: glowDate 2s ease-in-out infinite, fadeInUp 0.6s ease-in 0.4s forwards;
       opacity: 0;
     }
+
+    /* Asosiy tugma */
     .button {
       padding: 12px 30px;
       font-size: 1.1em;
@@ -68,10 +86,14 @@
       opacity: 0;
       animation: scaleIn 0.5s ease-in 0.6s forwards;
     }
+
+    /* Hover holati — sichqoncha bilan ustiga kelganda ko'rinish */
     .button:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 12px rgba(255, 215, 0, 0.5);
     }
+
+    /* Musiqa tugmasi (kichik kvadrat) */
     .music-button {
       width: 50px;
       height: 50px;
@@ -92,6 +114,8 @@
       opacity: 0;
       animation: scaleIn 0.5s ease-in 0.8s forwards;
     }
+
+    /* Musiqa tugmasining kichik yurakcha bezagi (pseudo-element) */
     .music-button::before {
       content: '❥';
       position: absolute;
@@ -101,15 +125,18 @@
       color: #ffcccb;
       opacity: 0.7;
     }
+
     .music-button:hover {
       transform: scale(1.1);
       box-shadow: 0 5px 10px rgba(255, 204, 203, 0.6);
     }
+
+    /* ===== TAKLIFNOMA KARTASI ===== */
     .invitation {
-      display: none;
+      display: none; /* Dastlab yashirin; showInvitation() bilan 'block' qilinadi */
       padding: 25px;
       border-radius: 15px;
-      background: rgba(0, 0, 0, 0.3);
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(0,0,0,0.4)); /* Shaffof gradient fon */
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
       max-width: 300px;
       width: 90%;
@@ -117,12 +144,15 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-      backdrop-filter: blur(8px);
+      transform: translate(-50%, -50%) scale(0.8); /* Markazlashtirish va kichraytirilgan boshlang'ich holat */
+      backdrop-filter: blur(8px); /* Orqa fonni biroz xiralashtiradi (brauzer qo'llab-quvvatlashi kerak) */
       animation: revealCard 0.6s ease-out forwards;
+      border-radius: 15px; /* (takrorlangan, ammo zarar qilmaydi) */
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
+
     .invitation h1 {
-      font-family: 'Great Vibes', cursive;
+      font-family: 'Times New Roman', cursive;
       font-size: 1.7em;
       color: #f5e8d0;
       margin-bottom: 8px;
@@ -130,6 +160,8 @@
       opacity: 0;
       animation: slideInLeft 0.5s ease-in 0.2s forwards, glowText 2s ease-in-out infinite;
     }
+
+    /* Yurakchalar (bezak) */
     .invitation .hearts {
       font-size: 1.3em;
       margin: 8px 0;
@@ -137,38 +169,61 @@
       animation: heartbeat 1.5s ease-in-out infinite, scaleIn 0.5s ease-in 0.3s forwards;
       opacity: 0;
     }
+
     .invitation h2 {
-      font-family: 'Lora', serif;
-      font-size: 1.6em;
+      font-family:'Great Vibes', cursive;
+      font-size: 2em;
       color: #e0d8c3;
       margin: 5px 0;
       font-weight: 400;
       opacity: 0;
       animation: slideInRight 0.5s ease-in 0.4s forwards;
     }
+
     .invitation .name-light {
       font-style: italic;
       color: #d4c8a8;
     }
+    
+    /* Taklif matni uchun maxsus uslub */
+    .taklif-matni {
+      font-family: 'Times New Roman', Times, serif !important;
+      font-size: 0.95em !important;
+      color: #d4c8a8 !important;
+      font-style: d !important;
+      margin: 10px 0 15px !important;
+      line-height: 1.5 !important;
+      opacity: 0;
+      animation: fadeUp 0.5s ease-in 0.6s forwards;
+    }
+
+    .invitation h2 .va {
+      font-style: 'Times New Roman';
+      font-size: 50%;
+    }
+
+    /* Yurakchalar dekoratsiyasi: flex yordamida joylashadi va animatsiya bilan paydo bo'ladi */
     .invitation .heart-decor {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
+      display: flex; /* Bir qatorda joylashtirish */
+      justify-content: center; /* Markazlashtirish */
+      gap: 8px; /* Elementlar orasidagi masofa */
       margin: 5px 0;
       opacity: 0;
-      animation: scaleIn 0.5s ease-in 0.5s forwards;
+      animation: scaleIn 0.5s ease-in 0.5s forwards; /* 0.5s kechikish bilan chiqish */
     }
+
     .invitation .heart-decor span {
       font-size: 0.9em;
       color: #ffcccb;
-      animation: swayHearts 2s ease-in-out infinite;
+      animation: swayHearts 2s ease-in-out infinite; /* Yurakchalar shaharjiy harakat qiladi */
     }
     .invitation .heart-decor span:nth-child(2) {
-      animation-delay: 0.2s;
+      animation-delay: 0.2s; /* Ikkinchi yurakka kechikish */
     }
     .invitation .heart-decor span:nth-child(3) {
-      animation-delay: 0.4s;
+      animation-delay: 0.4s; /* Uchinchi yurakka kechikish */
     }
+
     .invitation p {
       font-size: 0.95em;
       color: #e0d8c3;
@@ -178,6 +233,7 @@
       opacity: 0;
       animation: fadeUp 0.5s ease-in 0.6s forwards;
     }
+
     .invitation .date {
       font-size: 1em;
       color: #ffcccb;
@@ -186,6 +242,8 @@
       opacity: 0;
       animation: rotateIn 0.5s ease-in 0.7s forwards;
     }
+
+    /* Countdown (va uning elementlari) */
     .countdown {
       display: flex;
       justify-content: center;
@@ -194,6 +252,7 @@
       opacity: 0;
       animation: fadeUp 0.5s ease-in 0.8s forwards;
     }
+    
     .countdown-item {
       background: linear-gradient(145deg, #2c2c2c, #4a4a4a);
       padding: 12px;
@@ -207,7 +266,7 @@
       transform-style: preserve-3d;
     }
     .countdown-item.flip {
-      animation: flipNumber 0.3s ease-in-out;
+      animation: flipNumber 0.3s ease-in-out; /* Son o'zgarganda flip animatsiyasi */
     }
     .countdown-item .label {
       display: block;
@@ -216,6 +275,8 @@
       font-weight: normal;
       margin-top: 5px;
     }
+
+    /* Joylashuv satri */
     .location {
       font-size: 1em;
       color: #e0d8c3;
@@ -228,6 +289,7 @@
       color: #ffcccb;
       margin-right: 5px;
     }
+
     .view-button {
       padding: 10px 20px;
       background: #ffcccb;
@@ -247,6 +309,7 @@
       transform: translateY(-2px);
       box-shadow: 0 5px 12px rgba(255, 204, 203, 0.5);
     }
+
     .back-button {
       padding: 6px 12px;
       font-size: 0.8em;
@@ -267,177 +330,121 @@
       transform: scale(1.05);
       box-shadow: 0 3px 6px rgba(255, 204, 203, 0.3);
     }
+
+    /* ===== ANIMATSIYALAR ===== */
     @keyframes revealCard {
       from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
       to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     }
-    @keyframes slideInLeft {
-      from { opacity: 0; transform: translateX(-20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes slideInRight {
-      from { opacity: 0; transform: translateX(20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes scaleIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes rotateIn {
-      from { opacity: 0; transform: rotate(-10deg); }
-      to { opacity: 1; transform: rotate(0); }
-    }
-    @keyframes slideInUp {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInLeft {
-      from { opacity: 0; transform: translateX(-30px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-    }
-    @keyframes flipNumber {
-      0% { transform: rotateX(0deg); }
-      50% { transform: rotateX(90deg); }
-      100% { transform: rotateX(0deg); }
-    }
-    @keyframes swayHearts {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(5px); }
-    }
-    @keyframes glowText {
-      0%, 100% { color: #f5e8d0; text-shadow: 0 0 5px rgba(245, 232, 208, 0.5); }
-      50% { color: #ffffff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
-    }
-    @keyframes glowDate {
-      0%, 100% { color: #e0d8c3; text-shadow: 0 0 5px rgba(224, 216, 195, 0.5); }
-      50% { color: #ffffff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
-    }
+    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes rotateIn { from { opacity: 0; transform: rotate(-10deg); } to { opacity: 1; transform: rotate(0); } }
+    @keyframes slideInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+    @keyframes flipNumber { 0% { transform: rotateX(0deg); } 50% { transform: rotateX(90deg); } 100% { transform: rotateX(0deg); } }
+    @keyframes swayHearts { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+    @keyframes glowText { 0%, 100% { color: #f5e8d0; text-shadow: 0 0 5px rgba(245, 232, 208, 0.5); } 50% { color: #ffffff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); } }
+    @keyframes glowDate { 0%, 100% { color: #e0d8c3; text-shadow: 0 0 5px rgba(224, 216, 195, 0.5); } 50% { color: #ffffff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); } }
+
+    /* Responsive sozlamalar (mobil) */
     @media (max-width: 768px) {
-      .background-container {
-        background-size: contain;
-        background-position: center;
-      }
-      .title {
-        font-size: 2em;
-      }
-      .date {
-        font-size: 1.2em;
-      }
-      .button {
-        padding: 10px 20px;
-        font-size: 1em;
-      }
-      .music-button {
-        width: 40px;
-        height: 40px;
-        font-size: 1em;
-      }
-      .invitation {
-        padding: 20px;
-        max-width: 85%;
-      }
-      .invitation h1 {
-        font-size: 1.6em;
-      }
-      .invitation .hearts {
-        font-size: 1.1em;
-      }
-      .invitation h2 {
-        font-size: 1.3em;
-      }
-      .invitation .heart-decor span {
-        font-size: 0.8em;
-      }
-      .invitation p {
-        font-size: 0.85em;
-      }
-      .invitation .date {
-        font-size: 0.9em;
-      }
-      .countdown-item {
-        padding: 8px;
-        font-size: 1em;
-        min-width: 40px;
-      }
-      .countdown-item .label {
-        font-size: 0.65em;
-      }
-      .location {
-        font-size: 0.85em;
-      }
-      .view-button {
-        padding: 8px 15px;
-        font-size: 0.9em;
-      }
-      .back-button {
-        padding: 5px 10px;
-        font-size: 0.75em;
-      }
+      .background-container { background-size: contain; background-position: center; }
+      .title { font-size: 2em; }
+      .date { font-size: 1.2em; }
+      .button { padding: 10px 20px; font-size: 1em; }
+      .music-button { width: 40px; height: 40px; font-size: 1em; }
+      .invitation { padding: 20px; max-width: 85%; }
+      .invitation h1 { font-size: 1.6em; }
+      .invitation .hearts { font-size: 1.1em; }
+      .invitation h2 { font-size: 1.3em; }
+      .invitation .heart-decor span { font-size: 0.8em; }
+      .invitation p { font-size: 0.85em; }
+      .invitation .date { font-size: 0.9em; }
+      .countdown-item { padding: 8px; font-size: 1em; min-width: 40px; }
+      .countdown-item .label { font-size: 0.65em; }
+      .location { font-size: 0.85em; }
+      .view-button { padding: 8px 15px; font-size: 0.9em; }
+      .back-button { padding: 5px 10px; font-size: 0.75em; }
     }
   </style>
 </head>
 <body>
+  <!-- Orqa fon rasmini joylash -->
   <div class="background-container"></div>
+
+  <!-- Dastlabki overlay: sarlavha, sana va tugmalar -->
   <div class="overlay">
-    <div class="title">Mirjalolxon & Ozodaoy</div>
+    <div class="title">Mirjalolxon $ Ozodaoy</div> <!-- Diqqat: siz aslida $ belgisini o'zgacha ishlatgansiz -->
     <div class="date">05.12.2025</div>
     <button class="button" onclick="showInvitation()">Taklifnomani ochish</button>
     <button class="music-button" onclick="toggleMusic()" id="musicButton">🎵</button>
   </div>
+
+  <!-- Taklifnoma oynasi (bosilganda ko'rinadi) -->
   <div id="invitation" class="invitation">
     <h1>TAKLIFNOMA</h1>
     <div class="hearts">💑</div>
-    <h2><span>Mirjalolxon</span> & <span class="name-light">Ozodaoy</span></h2>
+
+    <h2><span class="QMT">Mirjalolxon</span> <span class="va">& </span></span> <span class="name-light">Ozodaoy</span></h2>
+
+    <!-- Yurakcha bezak -->
     <div class="heart-decor">
-      <span>❥</span><span>❥</span><span>❥</span>
+      <span>🎉</span><span>🎉</span><span>🎉</span>
     </div>
-    <p class="invite-text">
-      Sizni hayotimizning quvonchli kuni, nikoh to’yimizga bag’ishlangan <br>to'y marosimining aziz mehmoni bo'lishga taklif qilamiz.
+    
+    <!-- Taklif matni - klass nomi to'g'ri qo'llanildi -->
+    <p class="taklif-matni">
+      Sizni hayotimizning quvonchli kuni, nikoh to'yimizga bag'ishlangan to'y <br> marosimining aziz mehmoni bo'lishga taklif qilamiz.
     </p>
-    <div class="date">📅 05-dekabr, 2025-yil <br>  18:00</div>
+
+    <div class="date">📅 5-dekabr 2025-yil <br> soat 18:00 da</div>
+
+    <!-- ===== Countdown (tayinlangan joyga) ===== -->
     <div id="countdown" class="countdown"></div>
+
     <div class="location">
-      <span>📍</span> DILXUSH RESTORANI.
+      <span>📍</span> Beshkent shahri, Dilxush restorani
     </div>
-   <button class="view-button" onclick="window.open('https://www.google.com/maps/place/%22Dilxush%22+to\'yxonasi/@38.8259414,65.6538733,17z/data=!3m1!4b1!4m6!3m5!1s0x3f4ebab0fbbbdbf7:0x6086645efab7ce47!8m2!3d38.8259414!4d65.6564482!16s%2Fg%2F11dyp0gmjc?entry=ttu&g_ep=EgoyMDI1MTEyMC4xIKXMDSoASAFQAw%3D%3D', '_blank')">
-📍 Joylashuvni ko'rish
-</button>
- <button class="back-button" onclick="hideInvitation()">Ortga qaytish</button>
+
+    <!-- Xaritalarni yangi oynada ochadi -->
+    <button class="view-button" onclick="window.open('https://www.google.com/maps/place/%22Dilxush%22+to\'yxonasi/@38.8259414,65.6538733,17z/data=!3m1!4b1!4m6!3m5!1s0x3f4ebab0fbbbdbf7:0x6086645efab7ce47!8m2!3d38.8259414!4d65.6564482!16s%2Fg%2F11dyp0gmjc?entry=ttu&g_ep=EgoyMDI1MTEyMC4xIKXMDSoASAFQAw%3D%3D', '_blank')">
+      📍 Joylashuvni ko'rish</button>
+
+    <button class="back-button" onclick="hideInvitation()">Ortga qaytish</button>
   </div>
 
+  <!-- Musiqa elementi (fayl manzilingiz mahalliy) -->
   <audio id="weddingMusic" loop>
-    <source src="taklifnoma.mp3" type="audio/mp3">
+    <source src="/Users/7777/Desktop/TAKLIFNOMA/taklifnoma.mp3" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
 
   <script>
+    /* === Taklifnomani ko'rsatish funksiyasi === */
     function showInvitation() {
-      document.getElementById('invitation').style.display = 'block';
-      document.querySelector('.overlay').style.display = 'none';
-      startCountdown();
+      document.getElementById('invitation').style.display = 'block'; // Taklifnomani ko'rsat
+      document.querySelector('.overlay').style.display = 'none'; // Asosiy overlayni yashir
+      startCountdown(); // Countdownni ishga tushur
     }
 
+    /* === Taklifnomani yashirish (ortga qaytish) === */
     function hideInvitation() {
       document.getElementById('invitation').style.display = 'none';
       document.querySelector('.overlay').style.display = 'block';
     }
 
+    /* === Start countdown funksiyasi ===
+       Bu funksiya requestAnimationFrame yordamida doimiy yangilanadi.
+       lastRendered obyekti DOMni keraksiz yangilanishdan saqlash uchun ishlatiladi.
+    */
     function startCountdown() {
-      const weddingDate = new Date("December 05, 2025 18:00:00").getTime();
+      const weddingDate = new Date("December 05, 2025 18:00:00").getTime(); // Maqsadli sana
       const countdownElement = document.getElementById('countdown');
-      let lastRendered = null;
+      let lastRendered = null; // Oldingi holatni saqlash
 
       function updateCountdown() {
         const now = new Date().getTime();
@@ -448,11 +455,13 @@
           return;
         }
 
+        // Kun, soat, daqiqa, soniya hisoblash
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+        // Har soniyada flip animatsiyasini qo'llash uchun oldingi qiymat bilan solishtiramiz
         const newContent = `
           <div class="countdown-item${seconds !== lastRendered?.seconds ? ' flip' : ''}">${days}<span class="label">Days</span></div>
           <div class="countdown-item${hours !== lastRendered?.hours ? ' flip' : ''}">${hours}<span class="label">Hours</span></div>
@@ -460,17 +469,21 @@
           <div class="countdown-item${seconds !== lastRendered?.seconds ? ' flip' : ''}">${seconds}<span class="label">Sec</span></div>
         `;
 
+        // Faqat o'zgargan taqdirda DOMni yangilash (samaradorlik uchun)
         if (newContent !== lastRendered?.content) {
           countdownElement.innerHTML = newContent;
           lastRendered = { content: newContent, days, hours, minutes, seconds };
         }
 
+        // Yana keyingi frameda yangilash
         requestAnimationFrame(updateCountdown);
       }
 
+      // Dastlabki chaqiriq
       requestAnimationFrame(updateCountdown);
     }
 
+    /* === Musiqa boshqaruvi === */
     const audio = document.getElementById('weddingMusic');
     const musicButton = document.getElementById('musicButton');
     let isPlaying = false;
@@ -489,13 +502,4 @@
     }
   </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
-
